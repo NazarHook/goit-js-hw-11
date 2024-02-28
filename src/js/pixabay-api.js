@@ -1,15 +1,19 @@
-'use strict'
-export const form = document.querySelector('.form')
-export const input = document.querySelector('.search-input')
-export const searchButton = document.querySelector('.search-btn')
-const url = 'https://pixabay.com/api/'
-const KEY = '42555164-0de9ae952fe9eb05e418ffbde'
-function submitHandler(event) {
-     event.preventDefault();
-     const q = input.value
-const LINK = `${url}?key=${KEY}&q=${q}`
-     console.log(LINK);
-// fetch(url, {image_type: photo, orientation: horizontal, safesearch: true})
-}
-form.addEventListener('submit', submitHandler)
+const KEY = '42555164-0de9ae952fe9eb05e418ffbde';
 
+export function fetchImages(query) {
+  const url = `https://pixabay.com/api/?key=${KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`;
+
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.hits.length === 0) {
+        throw new Error('No images found');
+      }
+      return data.hits;
+    });
+}
