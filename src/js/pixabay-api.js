@@ -1,3 +1,5 @@
+import iziToast from "izitoast";
+
 const KEY = '42555164-0de9ae952fe9eb05e418ffbde';
 
 export function fetchImages(query) {
@@ -12,7 +14,11 @@ export function fetchImages(query) {
     })
     .then(data => {
       if (data.hits.length === 0) {
-        throw new Error('No images found');
+        iziToast.show({
+          message: 'No images found',
+          position: 'topRight',
+          color: 'red',
+        });
       }
       return data.hits;
     });

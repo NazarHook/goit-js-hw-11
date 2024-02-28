@@ -10,12 +10,6 @@ export function renderCards(images, galleryElement) {
     const cardMarkup = createCardMarkup(image);
     gallery.insertAdjacentHTML('beforeend', cardMarkup);
   });
-
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-  });
-  lightbox.refresh();
 }
 
 function createCardMarkup(image) {
